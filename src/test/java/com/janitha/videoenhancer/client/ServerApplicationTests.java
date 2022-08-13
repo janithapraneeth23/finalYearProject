@@ -1,4 +1,4 @@
-package com.janitha.videoenhancer.server;
+package com.janitha.videoenhancer.client;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
