@@ -70,6 +70,7 @@
 		<plugins>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
+				<version>${project.parent.version}</version>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 				<configuration>
 					<excludes>
