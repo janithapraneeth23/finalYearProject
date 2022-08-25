@@ -22,7 +22,7 @@ public class heartBeatService {
 
     private static final SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm:ss");
 
-    @Scheduled(fixedRate = 5000)
+    //@Scheduled(fixedRate = 5000)
     public void runCurrentTime() throws UnknownHostException, JsonProcessingException {
         log.info("The time is now {}" + dateFormat.format(new Date()));
         sendHeartBeat();
@@ -32,7 +32,8 @@ public class heartBeatService {
 
     public void sendHeartBeat() throws UnknownHostException, JsonProcessingException {
         String ip = InetAddress.getLocalHost().getHostAddress();
-        CloudletInfo tmp = new CloudletInfo("10","local", ip,"new");
+        String ipGlobal;
+        CloudletInfo tmp = new CloudletInfo(10,"local", ip,ip,"new");
         ObjectWriter ow = new ObjectMapper().writer().withDefaultPrettyPrinter();
         String json = ow.writeValueAsString(tmp);
         messagingGateway.sendToPubsub(json);

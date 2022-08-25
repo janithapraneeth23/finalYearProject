@@ -1,9 +1,15 @@
 package com.janitha.videoenhancer.client.app.controller;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.janitha.videoenhancer.client.domain.services.plugInManager;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.io.IOException;
+
 @RestController
-public class DashBoard extends BaseController{
+public class cloudletDashboard extends BaseController{
 
     /*
     @Autowired
@@ -43,7 +49,15 @@ public class DashBoard extends BaseController{
         return new RedirectView("/");
     }
 */
+    @Autowired
+    plugInManager plugInManagerObj;
 
+    @GetMapping("/getAvailablePlugins")
+    public String getAvailableCloudlets() throws IOException {
+        String strCloudletes = "";
+        plugInManagerObj.populatePluIngs();
 
+        return strCloudletes;
+    }
 
 }
