@@ -53,7 +53,7 @@ public class cloudletDashboard extends BaseController{
     plugInManager plugInManagerObj;
 
     @GetMapping("/getAvailablePlugins")
-    public String getAvailableCloudlets() throws IOException {
+    public String getAvailableCloudlets() throws IOException, InterruptedException {
         String strCloudletes = "";
         plugInManagerObj.populatePluIngs();
 

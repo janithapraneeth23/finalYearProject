@@ -20,7 +20,7 @@ public class plugInManager {
         return plugInExternalManagerOBJ.getAvailablePlugIns();
     }
 
-    public void populatePluIngs() throws IOException {
+    public void populatePluIngs() throws IOException, InterruptedException {
         plugInExternalManagerOBJ.populatePluIngs();
     }
 

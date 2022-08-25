@@ -4,11 +4,10 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.janitha.videoenhancer.client.external.models.plugIn;
 import org.springframework.stereotype.Component;
 
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 @Component
 public class plugInExternalManager {
@@ -18,7 +17,7 @@ public class plugInExternalManager {
         return plugInList;
     }
 
-    public void populatePluIngs() throws IOException{
+    public void populatePluIngs() throws IOException, InterruptedException {
         List<File> infoFileList = readInfoFiles();
         for (File file : infoFileList) {
             ObjectMapper mapper = new ObjectMapper();
@@ -29,18 +28,26 @@ public class plugInExternalManager {
 
         for(plugIn tmp : plugInList){
             System.out.println(tmp.getFileName());
-            ProcessBuilder processBuilder = new ProcessBuilder("python", resolvePythonScriptPath("hello.py"));
+            ProcessBuilder processBuilder = new ProcessBuilder("C:\\Users\\janitha\\AppData\\Local\\Programs\\Python\\Python310\\python", "C:\\Personal\\Msc\\Project\\server\\server\\src\\main\\java\\com\\janitha\\videoenhancer\\client\\external\\cloudletPlugins\\BlackAndWhitePlugin.py");
             processBuilder.redirectErrorStream(true);
 
             Process process = processBuilder.start();
-            List<String> results = readProcessOutput(process.getInputStream());
+            InputStream stream = (process.getInputStream());
 
-            assertThat("Results should not be empty", results, is(not(empty())));
-            assertThat("Results should contain output of script: ", results, hasItem(
-                    containsString("Hello Baeldung Readers!!")));
+            BufferedReader reader = new BufferedReader(new InputStreamReader(stream));
+            String line;
+            StringBuilder stringBuilder = new StringBuilder();
+            long end = System.currentTimeMillis() + TimeUnit.HOURS.toMillis(5);
+
+            while (System.currentTimeMillis() < end && (line = reader.readLine()) != null) {
+                stringBuilder.append(line);
+            }
+            stream.close();
+            String xmlOutput = stringBuilder.toString();
+            System.out.println(xmlOutput);
 
             int exitCode = process.waitFor();
-            assertEquals("No errors should be detected", 0, exitCode);
+
         }
     }
 
