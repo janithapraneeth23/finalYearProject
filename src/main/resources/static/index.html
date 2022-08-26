@@ -5,23 +5,31 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 </head>
 <body>
-<p>Find nearby cloudlet <a href="/greeting">here</a></p>
-<p>Get your greeting <a href="/greeting">here</a></p>
 
+<p>Find Available Plugins<a href="javascript:myFunction();"> Refresh</a></p>
 <p id="demo"></p>
 
 <br>
-<div id="cloudletList">Cloudlet info will be listed here...</div>
+<div id="pluginList">Cloudlet info will be listed here...</div>
+
+
 
 <script>
+
+function myFunction() {
+    const xhttp = new XMLHttpRequest();
+    xhttp.open("GET", "/updateAvailablePlugins");
+     xhttp.send();
+
+}
 setInterval(myTimer, 1000);
 
 function myTimer() {
   const xhttp = new XMLHttpRequest();
   xhttp.onload = function() {
-    document.getElementById("cloudletList").innerHTML = this.responseText;
+    document.getElementById("pluginList").innerHTML = this.responseText;
   }
-  xhttp.open("GET", "/getAvailableCloudlets");
+  xhttp.open("GET", "/getAvailablePlugins");
   xhttp.send();
 }
 </script>

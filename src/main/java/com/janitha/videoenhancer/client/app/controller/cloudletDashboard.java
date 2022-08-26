@@ -62,16 +62,19 @@ public class cloudletDashboard extends BaseController{
     }
     @GetMapping("/getAvailablePlugins")
     public String getAvailableCloudlets() throws IOException, InterruptedException {
-        String strCloudletes = "";
+        String strCloudletes = "<ul>";
         Map<String, plugIn> plugInMap =  plugInManagerObj.getAvailablePlugIns();
-        for (Map.Entry<String, plugIn> entry : plugInMap.entrySet())
-            strCloudletes += "\n" + entry.getKey();
+        for (Map.Entry<String, plugIn> entry : plugInMap.entrySet()) {
+            strCloudletes += "<li>" + entry.getKey() + "</li>";
+
+        }
+        strCloudletes += ("</ul>");
         return strCloudletes;
     }
 
-    @GetMapping("/involkePlugIn/{pluinName}")
-    public String involkePlugIn(@PathVariable("pluinName") String pluinName) throws IOException, InterruptedException {
-        return plugInManagerObj.involveAPlugin(pluinName);
+    @GetMapping("/involkePlugIn/{pluinName}/{videoURL}")
+    public String involkePlugIn(@PathVariable("pluinName") String pluinName, @PathVariable("videoURL") String videoURL) throws IOException, InterruptedException {
+        return plugInManagerObj.involveAPlugin(pluinName, videoURL);
     }
 
 }
