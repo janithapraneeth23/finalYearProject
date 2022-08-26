@@ -1,5 +1,5 @@
 server:
-  port: 8080
+  port: 8081
 base-url:
   context: /api/library/v1.0
 
@@ -21,3 +21,7 @@ spring:
 
 log:
   identifierKey: UUID
+
+python:
+  pluginFilePath: "..\\server\\src\\main\\java\\com\\janitha\\videoenhancer\\client\\external\\cloudletPlugins"
+  pythonPath : "C:\\Users\\janitha\\AppData\\Local\\Programs\\Python\\Python310\\python"
