@@ -1,5 +1,6 @@
 package com.janitha.videoenhancer.client.domain.services;
 
+import com.janitha.videoenhancer.client.domain.mdbspringboot.model.cloudletPluginArguments;
 import com.janitha.videoenhancer.client.external.models.plugIn;
 import com.janitha.videoenhancer.client.external.repositories.plugInExternalManager;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,12 +32,13 @@ public class plugInManager {
 
     @Value("${python.pythonPath}")
     private String pythonPath;
-    public String involveAPlugin(String plugInName) throws IOException, InterruptedException {
+    public String involveAPlugin(String plugInName, String URL) throws IOException, InterruptedException {
         Map<String, plugIn> plugInList = getAvailablePlugIns();
         String xmlOutput = "";
         if(plugInList.containsKey(plugInName)){
             plugIn tmp = plugInList.get(plugInName);
-            ProcessBuilder processBuilder = new ProcessBuilder(pythonPath, pluginFilePath + tmp.getFileName());
+            cloudletPluginArguments pluginArguments = new cloudletPluginArguments("0", URL);
+            ProcessBuilder processBuilder = new ProcessBuilder(pythonPath, pluginFilePath + tmp.getFileName(), pluginArguments.getPort(), pluginArguments.getVideoURL());
             processBuilder.redirectErrorStream(true);
 
             Process process = processBuilder.start();
