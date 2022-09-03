@@ -1,8 +1,7 @@
-<!DOCTYPE HTML>
 <html>
 <head>
-    <title>Getting Started: Serving Web Content</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>Video enhancer with cloudlets</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 </head>
 <body>
 
@@ -10,19 +9,41 @@
 <p id="demo"></p>
 
 <br>
-<div id="pluginList">Cloudlet info will be listed here...</div>
+<div id="pluginList">Plugin info will be listed here...</div>
 
-
+<form name="videoRequestForm" action="" onsubmit="return validateForm()" method="post">
+    URL: <input type="text" name="URL">
+    PlugIn: <input type="text" name="PlugInName">
+    <input type="submit" value="Submit">
+</form>
 
 <script>
+
+window.onload = myFunction;
 
 function myFunction() {
     const xhttp = new XMLHttpRequest();
     xhttp.open("GET", "/updateAvailablePlugins");
-     xhttp.send();
+    xhttp.send();
 
 }
 setInterval(myTimer, 1000);
+
+function validateForm() {
+  let x = document.forms["videoRequestForm"]["URL"].value;
+  if (x == "") {
+    alert("Name must be filled out");
+    return false;
+  }
+    let y = document.forms["videoRequestForm"]["PlugInName"].value;
+  if (y == "") {
+    alert("Name must be filled out");
+    return false;
+  }
+  let nU = 'involkePlugIn/' + y + '/' + x;
+  window.location.replace(nU);
+  return false;
+}
 
 function myTimer() {
   const xhttp = new XMLHttpRequest();
@@ -33,7 +54,6 @@ function myTimer() {
   xhttp.send();
 }
 </script>
-
 
 </body>
 </html>
