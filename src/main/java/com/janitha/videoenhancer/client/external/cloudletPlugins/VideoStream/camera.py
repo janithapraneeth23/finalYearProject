@@ -1,5 +1,3 @@
-#camera.py# import the necessary packages
-import cv2# defining face detector
 import cv2, pafy
 
 ds_factor=0.6
