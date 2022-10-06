@@ -9,11 +9,13 @@
 <p id="demo"></p>
 
 <br>
-<div id="pluginList">Plugin info will be listed here...</div>
+<p>List Available Plugins<a href="javascript:myTimer();"> Refresh</a></p>
+
+
 
 <form name="videoRequestForm" action="" onsubmit="return validateForm()" method="post">
     URL: <input type="text" name="URL">
-    PlugIn: <input type="text" name="PlugInName">
+    <select name="pluginListSelect" id="pluginList">Plugin info will be listed here...</select>
     <input type="submit" value="Submit">
 </form>
 
@@ -27,23 +29,7 @@ function myFunction() {
     xhttp.send();
 
 }
-setInterval(myTimer, 1000);
 
-function validateForm() {
-  let x = document.forms["videoRequestForm"]["URL"].value;
-  if (x == "") {
-    alert("Name must be filled out");
-    return false;
-  }
-    let y = document.forms["videoRequestForm"]["PlugInName"].value;
-  if (y == "") {
-    alert("Name must be filled out");
-    return false;
-  }
-  let nU = 'involkePlugIn/' + y + '/' + x;
-  window.location.replace(nU);
-  return false;
-}
 
 function myTimer() {
   const xhttp = new XMLHttpRequest();
@@ -52,6 +38,22 @@ function myTimer() {
   }
   xhttp.open("GET", "/getAvailablePlugins");
   xhttp.send();
+}
+
+function validateForm() {
+  let x = document.forms["videoRequestForm"]["URL"].value;
+  if (x == "") {
+    alert("Name must be filled out");
+    return false;
+  }
+    let y = document.forms["videoRequestForm"]["pluginListSelect"].value;
+  if (y == "") {
+    alert("Name must be filled out");
+    return false;
+  }
+  let nU = 'involkePlugIn/' + y + '/' + x;
+  window.location.replace(nU);
+  return false;
 }
 </script>
 

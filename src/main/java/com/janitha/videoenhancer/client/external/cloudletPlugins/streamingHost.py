@@ -26,7 +26,7 @@ def video_feed():
                     mimetype='multipart/x-mixed-replace; boundary=frame')
 
 class StreamingHost(object):
-    def __init__(self, hostInput, portInput, URLInput, cameraInput):
+    def __init__(self, hostInput, portInput, cameraInput):
         global originalCamera
         originalCamera = cameraInput
         

@@ -24,11 +24,13 @@ host = sys.argv[1]
 port = sys.argv[2]
 URL = sys.argv[3]
 
-originalCamera = BlackAndWhite("https://www.youtube.com/watch?v=2fmkmp-_KH0")
-
 print("\n", host, " ", port, " ", URL)
 
-StreamingHost(host, port, URL, originalCamera)
+originalCamera = BlackAndWhite(URL)
+
+
+
+StreamingHost(host, port, originalCamera)
 
 
 print('End Succefully')

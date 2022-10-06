@@ -33,15 +33,20 @@ public class plugInManager {
     @Value("${python.pythonPath}")
     private String pythonPath;
     public String involveAPlugin(String plugInName, String URL) throws IOException, InterruptedException {
+
         Map<String, plugIn> plugInList = getAvailablePlugIns();
-        String xmlOutput = "";
+        String xmlOutput = "Completerd";
+        String host = "0.0.0.0";
+        URL = "https://www.youtube.com/watch?v=2fmkmp-_KH0";
         if(plugInList.containsKey(plugInName)){
             plugIn tmp = plugInList.get(plugInName);
             cloudletPluginArguments pluginArguments = new cloudletPluginArguments("0", URL);
-            ProcessBuilder processBuilder = new ProcessBuilder(pythonPath, pluginFilePath + tmp.getFileName(), pluginArguments.getPort(), pluginArguments.getVideoURL());
+            ProcessBuilder processBuilder = new ProcessBuilder(pythonPath, pluginFilePath + tmp.getFileName(), host, pluginArguments.getPort(), pluginArguments.getVideoURL());
             processBuilder.redirectErrorStream(true);
-
+            System.out.println(plugInName + "  filePath " + tmp.getFileName() +  " " + URL + " " + pluginArguments.getPort() + "\n");
             Process process = processBuilder.start();
+            System.out.println(plugInName + "  filePath2 " + tmp.getFileName() +  " " + URL + " " + pluginArguments.getPort() + "\n");
+
             InputStream stream = (process.getInputStream());
 
             BufferedReader reader = new BufferedReader(new InputStreamReader(stream));
@@ -49,14 +54,15 @@ public class plugInManager {
             StringBuilder stringBuilder = new StringBuilder();
             long end = System.currentTimeMillis() + TimeUnit.HOURS.toMillis(5);
 
-            while (System.currentTimeMillis() < end && (line = reader.readLine()) != null) {
-                stringBuilder.append(line);
-            }
+            //while (System.currentTimeMillis() < end && (line = reader.readLine()) != null) {
+             //   stringBuilder.append(line);
+            //}
             stream.close();
             xmlOutput = stringBuilder.toString();
             System.out.println(xmlOutput);
 
-            int exitCode = process.waitFor();
+            return host + ":" + pluginArguments.getPort();
+            //int exitCode = process.waitFor();
 
         }
         return xmlOutput;
