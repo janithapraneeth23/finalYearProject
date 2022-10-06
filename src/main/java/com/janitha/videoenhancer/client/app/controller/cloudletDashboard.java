@@ -4,9 +4,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.janitha.videoenhancer.client.domain.services.plugInManager;
 import com.janitha.videoenhancer.client.external.models.plugIn;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
 import java.util.Map;
@@ -62,19 +60,21 @@ public class cloudletDashboard extends BaseController{
     }
     @GetMapping("/getAvailablePlugins")
     public String getAvailableCloudlets() throws IOException, InterruptedException {
-        String strCloudletes = "<ul>";
+        String strCloudletes = "";
         Map<String, plugIn> plugInMap =  plugInManagerObj.getAvailablePlugIns();
         for (Map.Entry<String, plugIn> entry : plugInMap.entrySet()) {
-            strCloudletes += "<li>" + entry.getKey() + "</li>";
+            strCloudletes += "<option value=" +  entry.getKey() + ">" + entry.getKey() + "</option>";
 
         }
-        strCloudletes += ("</ul>");
+        //strCloudletes += ("</select>");
         return strCloudletes;
     }
 
     @GetMapping("/involkePlugIn/{pluinName}/{videoURL}")
     public String involkePlugIn(@PathVariable("pluinName") String pluinName, @PathVariable("videoURL") String videoURL) throws IOException, InterruptedException {
-        return plugInManagerObj.involveAPlugin(pluinName, videoURL);
+        String New_URL = plugInManagerObj.involveAPlugin(pluinName, videoURL);
+        String NewText = "<a href=\"/" + New_URL +"\">click Here</a>";
+        return NewText;
     }
 
 }
