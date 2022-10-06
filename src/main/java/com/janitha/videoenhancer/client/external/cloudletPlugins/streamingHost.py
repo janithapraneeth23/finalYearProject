@@ -1,8 +1,12 @@
 
 from flask import Flask, render_template, Response
-from camera import VideoCamera
+#from camera import VideoCamera
+from waitress import serve
+
+
 
 app = Flask(__name__)
+originalCamera = 0
 
 @app.route('/')
 def index():
@@ -18,9 +22,12 @@ def gen(camera):
         
 @app.route('/video_feed')
 def video_feed():
-    return Response(gen(VideoCamera()),
+    return Response(gen(originalCamera),
                     mimetype='multipart/x-mixed-replace; boundary=frame')
 
 class StreamingHost(object):
-    def __init__(self):
-        app.run(host='0.0.0.0',port='5000', debug=True)
+    def __init__(self, hostInput, portInput, URLInput, cameraInput):
+        global originalCamera
+        originalCamera = cameraInput
+        
+        serve(app, host=hostInput, port=portInput) #, debug=False)

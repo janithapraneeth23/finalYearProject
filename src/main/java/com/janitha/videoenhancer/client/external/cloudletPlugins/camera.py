@@ -2,17 +2,19 @@ import cv2, pafy
 
 ds_factor=0.6
 class VideoCamera(object):
-    def __init__(self):
-       url   = "https://www.youtube.com/watch?v=2fmkmp-_KH0"
-
-       video = pafy.new(url)
-       best  = video.getbest()
-       best.resolution, best.extension
-
-       capture = cv2.VideoCapture(best.url)
-       check, frame = capture.read()
-
-       self.video = cv2.VideoCapture(best.url)
+    url_ = ""
+    
+    def __init__(self, url):
+        self.url_ = url
+ 
+        video = pafy.new(self.url_)
+        best  = video.getbest()
+        best.resolution, best.extension
+ 
+        capture = cv2.VideoCapture(best.url)
+        check, frame = capture.read()
+ 
+        self.video = cv2.VideoCapture(best.url)
     
     def __del__(self):
         #releasing camera
