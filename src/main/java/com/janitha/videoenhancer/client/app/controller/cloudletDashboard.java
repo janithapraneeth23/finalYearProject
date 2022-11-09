@@ -3,10 +3,13 @@ package com.janitha.videoenhancer.client.app.controller;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.janitha.videoenhancer.client.domain.services.plugInManager;
 import com.janitha.videoenhancer.client.external.models.plugIn;
+import com.janitha.videoenhancer.client.external.models.pluginRequest;
+import com.janitha.videoenhancer.client.external.models.responseReqPlugin;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
+import java.net.InetAddress;
 import java.util.Map;
 
 @RestController
@@ -67,14 +70,25 @@ public class cloudletDashboard extends BaseController{
 
         }
         //strCloudletes += ("</select>");
+        String ip = InetAddress.getLocalHost().getHostAddress();
+        System.out.println("IP: " + ip);
         return strCloudletes;
     }
 
-    @GetMapping("/involkePlugIn/{pluinName}/{videoURL}")
+    /*@GetMapping("/involkePlugIn/{pluinName}/{videoURL}")
     public String involkePlugIn(@PathVariable("pluinName") String pluinName, @PathVariable("videoURL") String videoURL) throws IOException, InterruptedException {
         String New_URL = plugInManagerObj.involveAPlugin(pluinName, videoURL);
         String NewText = "<a href=\"/" + New_URL +"\">click Here</a>";
         return NewText;
+    }*/
+
+    @PostMapping("/involkePlugIn/")
+    public responseReqPlugin involkePlugIn(@RequestBody pluginRequest request) throws IOException, InterruptedException {
+
+        responseReqPlugin newResponse = plugInManagerObj.involveAPlugin(request.getPluginName(), request.getURL());
+
+
+        return newResponse;
     }
 
 }

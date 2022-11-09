@@ -2,6 +2,7 @@ package com.janitha.videoenhancer.client.domain.services;
 
 import com.janitha.videoenhancer.client.domain.mdbspringboot.model.cloudletPluginArguments;
 import com.janitha.videoenhancer.client.external.models.plugIn;
+import com.janitha.videoenhancer.client.external.models.responseReqPlugin;
 import com.janitha.videoenhancer.client.external.repositories.plugInExternalManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -32,11 +33,14 @@ public class plugInManager {
 
     @Value("${python.pythonPath}")
     private String pythonPath;
-    public String involveAPlugin(String plugInName, String URL) throws IOException, InterruptedException {
+
+    @Value("${server.address}")
+    private String ipAddress;
+    public responseReqPlugin involveAPlugin(String plugInName, String URL) throws IOException, InterruptedException {
 
         Map<String, plugIn> plugInList = getAvailablePlugIns();
         String xmlOutput = "Completerd";
-        String host = "0.0.0.0";
+        String host = ipAddress;
         URL = "https://www.youtube.com/watch?v=2fmkmp-_KH0";
         if(plugInList.containsKey(plugInName)){
             plugIn tmp = plugInList.get(plugInName);
@@ -45,7 +49,7 @@ public class plugInManager {
             processBuilder.redirectErrorStream(true);
             System.out.println(plugInName + "  filePath " + tmp.getFileName() +  " " + URL + " " + pluginArguments.getPort() + "\n");
             Process process = processBuilder.start();
-            System.out.println(plugInName + "  filePath2 " + tmp.getFileName() +  " " + URL + " " + pluginArguments.getPort() + "\n");
+            System.out.println(host + " " + plugInName + "  filePath2 " + tmp.getFileName() +  " " + URL + " " + pluginArguments.getPort() + "\n");
 
             InputStream stream = (process.getInputStream());
 
@@ -61,11 +65,11 @@ public class plugInManager {
             xmlOutput = stringBuilder.toString();
             System.out.println(xmlOutput);
 
-            return host + ":" + pluginArguments.getPort();
+            return new responseReqPlugin(true, host, pluginArguments.getPort());
             //int exitCode = process.waitFor();
 
         }
-        return xmlOutput;
+        return new responseReqPlugin(false, "", "");
     }
 
 

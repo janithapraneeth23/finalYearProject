@@ -19,7 +19,7 @@ public class cloudletPluginArguments {
     public String videoURL;
 
     public int getAnAvailablePort() throws IOException {
-        int[] ports = new int[] { 8081,3843, 4584, 4843 };
+        int[] ports = new int[] { 8081,3843, 4584, 4843 , 4849, 4840};
         for (int port : ports) {
             try {
                 new ServerSocket(port).close();

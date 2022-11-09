@@ -29,5 +29,5 @@ class StreamingHost(object):
     def __init__(self, hostInput, portInput, cameraInput):
         global originalCamera
         originalCamera = cameraInput
-        
+        print("\n", hostInput, " ", portInput)
         serve(app, host=hostInput, port=portInput) #, debug=False)

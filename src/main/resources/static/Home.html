@@ -20,69 +20,11 @@
 		"name": "",
 		"logo": "images/Logo1.png"
 }</script>
-    <script>
-
-window.onload = myFunction;
-
-function myFunction() {
-    const xhttp = new XMLHttpRequest();
-    xhttp.open("GET", "/updateAvailablePlugins");
-    xhttp.send();
-
-}
-
-
-function myTimer() {
-  const xhttp = new XMLHttpRequest();
-  xhttp.onload = function() {
-    document.getElementById("select-faf5").innerHTML = this.responseText;
-  }
-  xhttp.open("GET", "/getAvailablePlugins");
-  xhttp.send();
-}
-
-function jObj(pluginName, URL){
-    this.pluginName = pluginName;
-    this.URL = URL;
-}
-
-function validateForm() {
-  let x = document.forms["videoRequestForm"]["URL"].value;
-  if (x == "") {
-    alert("Name must be filled out");
-    return false;
-  }
-    let y = document.forms["videoRequestForm"]["pluginListSelect"].value;
-  if (y == "") {
-    alert("Name must be filled out");
-    return false;
-  }
-
-
-  const JOBJ = new jObj(y,x);
-
-  fetch('/involkePlugIn/', {
-        method: 'POST',
-        headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'
-        },
-            body: JSON.stringify(JOBJ)
-    })
-     .then((response) => response.json())
-     .then((data) => { let host = data.host;
-                       let port = data.port;
-                        window.location.replace('//' + host + ':' + port);})
-
-  return false;
-}
-</script>
-
     <meta name="theme-color" content="#1847b8">
     <meta property="og:title" content="Home">
     <meta property="og:type" content="website">
   </head>
-  <body data-home-page="Home.html" data-home-page-title="Home" class="u-body u-xl-mode" data-lang="en"><header class="u-clearfix u-header u-header" id="sec-8ac9"><div class="u-clearfix u-sheet u-sheet-1">
+  <body class="u-body u-xl-mode" data-lang="en"><header class="u-clearfix u-header u-header" id="sec-8ac9"><div class="u-clearfix u-sheet u-sheet-1">
         <a href="https://nicepage.com" class="u-image u-logo u-image-1" data-image-width="611" data-image-height="180">
           <img src="images/Logo1.png" class="u-logo-image u-logo-image-1">
         </a>
@@ -122,18 +64,18 @@ function validateForm() {
               </div>
               <div class="u-container-style u-layout-cell u-size-30 u-layout-cell-2">
                 <div class="u-container-layout u-container-layout-2">
-                  <a href="javascript:myFunction();" class="u-border-2 u-border-hover-palette-1-base u-border-palette-1-base u-btn u-btn-round u-button-style u-hover-palette-1-base u-none u-radius-50 u-btn-1"> Find Available Plugins</a>
-                  <a href="javascript:myTimer();" class="u-border-2 u-border-hover-palette-1-base u-border-palette-1-base u-btn u-btn-round u-button-style u-hover-palette-1-base u-none u-radius-50 u-btn-2">List Available Plugins</a>
+                  <a href="https://nicepage.review" class="u-border-2 u-border-hover-palette-1-base u-border-palette-1-base u-btn u-btn-round u-button-style u-hover-palette-1-base u-none u-radius-50 u-btn-1"> Find Available Plugins</a>
+                  <a href="https://nicepage.com/c/architecture-building-website-templates" class="u-border-2 u-border-hover-palette-1-base u-border-palette-1-base u-btn u-btn-round u-button-style u-hover-palette-1-base u-none u-radius-50 u-btn-2">List Available Plugins</a>
                   <div class="u-form u-form-1">
-                    <form name="videoRequestForm" action="" onsubmit="return validateForm()" method="post" class="u-clearfix u-form-spacing-15 u-form-vertical u-inner-form" style="padding: 15px;" source="email">
+                    <form action="https://forms.nicepagesrv.com/Form/Process" class="u-clearfix u-form-spacing-15 u-form-vertical u-inner-form" style="padding: 15px;" source="email" name="form">
                       <div class="u-form-group u-form-name u-label-none">
                         <label for="name-6797" class="u-label">URL</label>
-                        <input type="text" placeholder="URL" id="name-6797" name="URL" class="u-border-1 u-border-grey-30 u-input u-input-rectangle" required="">
+                        <input type="text" placeholder="URL" id="name-6797" name="name" class="u-border-1 u-border-grey-30 u-input u-input-rectangle" required="">
                       </div>
                       <div class="u-form-group u-form-select u-label-none">
                         <label for="select-faf5" class="u-label">Dropdown</label>
                         <div class="u-form-select-wrapper">
-                          <select id="select-faf5" name="pluginListSelect" class="u-border-1 u-border-grey-30 u-input u-input-rectangle">
+                          <select id="select-faf5" name="select" class="u-border-1 u-border-grey-30 u-input u-input-rectangle">
                             <option value=""></option>
                           </select>
                           <svg class="u-caret u-caret-svg" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="16px" height="16px" viewBox="0 0 16 16" style="fill:currentColor;" xml:space="preserve"><polygon class="st0" points="8,12 2,4 14,4 "></polygon></svg>

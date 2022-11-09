@@ -1,0 +1,61 @@
+<html>
+<head>
+<title>Video enhancer with cloudlets</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+
+<p>Find Available Plugins<a href="javascript:myFunction();"> Refresh</a></p>
+<p id="demo"></p>
+
+<br>
+<p>List Available Plugins<a href="javascript:myTimer();"> Refresh</a></p>
+
+
+
+<form name="videoRequestForm" action="" onsubmit="return validateForm()" method="post">
+    URL: <input type="text" name="URL">
+    <select name="pluginListSelect" id="pluginList">Plugin info will be listed here...</select>
+    <input type="submit" value="Submit">
+</form>
+
+<script>
+
+window.onload = myFunction;
+
+function myFunction() {
+    const xhttp = new XMLHttpRequest();
+    xhttp.open("GET", "/updateAvailablePlugins");
+    xhttp.send();
+
+}
+
+
+function myTimer() {
+  const xhttp = new XMLHttpRequest();
+  xhttp.onload = function() {
+    document.getElementById("pluginList").innerHTML = this.responseText;
+  }
+  xhttp.open("GET", "/getAvailablePlugins");
+  xhttp.send();
+}
+
+function validateForm() {
+  let x = document.forms["videoRequestForm"]["URL"].value;
+  if (x == "") {
+    alert("Name must be filled out");
+    return false;
+  }
+    let y = document.forms["videoRequestForm"]["pluginListSelect"].value;
+  if (y == "") {
+    alert("Name must be filled out");
+    return false;
+  }
+  let nU = 'involkePlugIn/' + y + '/' + x;
+  window.location.replace(nU);
+  return false;
+}
+</script>
+
+</body>
+</html>
