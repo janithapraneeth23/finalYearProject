@@ -1,5 +1,6 @@
 package com.janitha.videoenhancer.client.domain.services;
 
+import com.janitha.videoenhancer.client.domain.mdbspringboot.model.PyProcess;
 import com.janitha.videoenhancer.client.domain.mdbspringboot.model.cloudletPluginArguments;
 import com.janitha.videoenhancer.client.external.models.plugIn;
 import com.janitha.videoenhancer.client.external.models.responseReqPlugin;
@@ -19,7 +20,8 @@ public class plugInManager {
     @Autowired
     plugInExternalManager plugInExternalManagerOBJ;
 
-
+    @Autowired
+    PythonProcessManager pythonProcessManagerOBJ;
     public Map<String, plugIn> getAvailablePlugIns(){
         return plugInExternalManagerOBJ.getAvailablePlugIns();
     }
@@ -57,6 +59,9 @@ public class plugInManager {
             String line;
             StringBuilder stringBuilder = new StringBuilder();
             long end = System.currentTimeMillis() + TimeUnit.HOURS.toMillis(5);
+
+            PyProcess pyProcess = new PyProcess(process, pluginArguments, plugInName);
+            pythonProcessManagerOBJ.addAProcess(pyProcess);
 
             //while (System.currentTimeMillis() < end && (line = reader.readLine()) != null) {
              //   stringBuilder.append(line);
