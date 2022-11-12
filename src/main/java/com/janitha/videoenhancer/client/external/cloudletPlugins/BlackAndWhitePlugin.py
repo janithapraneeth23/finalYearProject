@@ -16,7 +16,11 @@ class BlackAndWhite(VideoCamera):
         gray=cv2.cvtColor(frame,cv2.COLOR_BGR2GRAY)
         ret, jpeg = cv2.imencode('.jpg', gray)
         return jpeg.tobytes()
-
+    
+    def get_audio(self):
+        play_url = self.bestaudio.url
+        return play_url
+    
 
 
 n = len(sys.argv)

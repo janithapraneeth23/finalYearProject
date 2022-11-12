@@ -43,7 +43,7 @@ public class plugInManager {
         Map<String, plugIn> plugInList = getAvailablePlugIns();
         String xmlOutput = "Completerd";
         String host = ipAddress;
-        URL = "https://www.youtube.com/watch?v=2fmkmp-_KH0";
+        //URL = "https://www.youtube.com/watch?v=2fmkmp-_KH0";
         if(plugInList.containsKey(plugInName)){
             plugIn tmp = plugInList.get(plugInName);
             cloudletPluginArguments pluginArguments = new cloudletPluginArguments("0", URL);

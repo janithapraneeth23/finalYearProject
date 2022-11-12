@@ -1,24 +1,26 @@
 import cv2, pafy
 
-ds_factor=0.6
+ds_factor=1
 class VideoCamera(object):
-    url_ = ""
+    
     
     def __init__(self, url):
-        self.url_ = url
- 
-        video = pafy.new(self.url_)
-        best  = video.getbest()
-        best.resolution, best.extension
- 
-        capture = cv2.VideoCapture(best.url)
-        check, frame = capture.read()
- 
-        self.video = cv2.VideoCapture(best.url)
+       #url   = "https://www.youtube.com/watch?v=2fmkmp-_KH0"
+
+       self.pafyObj = pafy.new(url)
+       bestVideo  = self.pafyObj.getbestvideo()
+       #best.resolution, best.extension
+       
+
+       #capture = cv2.VideoCapture(best.url)
+       #check, frame = capture.read()
+
+       self.video = cv2.VideoCapture(bestVideo.url)
+       self.bestaudio = self.pafyObj.getbestaudio()
     
     def __del__(self):
         #releasing camera
-        self.video.release()
+        self.pafyObj.release()
     
     def get_frame(self):
        #extracting frames
@@ -28,3 +30,7 @@ class VideoCamera(object):
         gray=cv2.cvtColor(frame,cv2.COLOR_BGR2GRAY)
         ret, jpeg = cv2.imencode('.jpg', frame)
         return jpeg.tobytes()
+        
+    #def get_audio(self):
+    #    play_url = self.bestaudio.url
+    #   return play_url

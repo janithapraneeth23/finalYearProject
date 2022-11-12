@@ -5,5 +5,21 @@
   <body>
     <h1>Video Streaming Via Cloudlet</h1>
     <img id="bg" src="{{ url_for('video_feed') }}">
-  </body>
+	
+	
+	<p id="add_after_me">
+        This is the text which has already been typed into the div</p>
+	
+	<script>
+		window.onload = function() {
+		  myFunction();
+		};
+	function myFunction() {
+		var xmlHttp = new XMLHttpRequest();
+		xmlHttp.open( "GET", '/audio_feed', false ); // false for synchronous request
+		xmlHttp.send( null );
+	  document.getElementById("add_after_me").insertAdjacentHTML("afterend",xmlHttp.responseText);
+	}
+	</script>
+	</body>
 </html>

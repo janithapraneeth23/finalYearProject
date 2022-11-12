@@ -1,5 +1,5 @@
 
-from flask import Flask, render_template, Response
+from flask import Flask, render_template, Response,make_response
 #from camera import VideoCamera
 from waitress import serve
 
@@ -22,8 +22,18 @@ def gen(camera):
         
 @app.route('/video_feed')
 def video_feed():
+    print("Hellow22\n\n")
     return Response(gen(originalCamera),
                     mimetype='multipart/x-mixed-replace; boundary=frame')
+
+
+@app.route('/audio_feed')
+def audio_feed():
+    #print(originalCamera.get_audio())
+    ##print("Hellow\n\n")
+    #response = make_response(originalCamera.get_audio(), 200)
+    #response.mimetype = "text/plain"
+    return 	'<audio controls autoplay=true>  <source src=' + originalCamera.get_audio() + ' type="audio/ogg">element </audio>'
 
 class StreamingHost(object):
     def __init__(self, hostInput, portInput, cameraInput):
@@ -31,3 +41,4 @@ class StreamingHost(object):
         originalCamera = cameraInput
         print("\n", hostInput, " ", portInput)
         serve(app, host=hostInput, port=portInput) #, debug=False)
+        #app.run(host=hostInput, port=portInput) #, debug=False
