@@ -26,6 +26,9 @@ def video_feed():
     return Response(gen(originalCamera),
                     mimetype='multipart/x-mixed-replace; boundary=frame')
 
+@app.route('/cludlet_status')
+def cludlet_status():
+    return "running"
 
 @app.route('/audio_feed')
 def audio_feed():

@@ -8,8 +8,10 @@ import com.janitha.videoenhancer.client.external.repositories.plugInExternalMana
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
+import org.springframework.web.client.RestTemplate;
 
 import java.io.*;
+import java.net.ConnectException;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
@@ -58,14 +60,22 @@ public class plugInManager {
             BufferedReader reader = new BufferedReader(new InputStreamReader(stream));
             String line;
             StringBuilder stringBuilder = new StringBuilder();
-            long end = System.currentTimeMillis() + TimeUnit.HOURS.toMillis(5);
+            long end = System.currentTimeMillis() + TimeUnit.MINUTES.toMillis(2);
 
             PyProcess pyProcess = new PyProcess(process, pluginArguments, plugInName);
             pythonProcessManagerOBJ.addAProcess(pyProcess);
 
-            //while (System.currentTimeMillis() < end && (line = reader.readLine()) != null) {
-             //   stringBuilder.append(line);
-            //}
+            while (System.currentTimeMillis() < end) {
+                String Cloudlet_URL ="http://" + host + ":" + pluginArguments.getPort() + "/cludlet_status";
+                RestTemplate cloudletReq = new RestTemplate();
+                String result = "";
+                try {
+                    result = cloudletReq.getForObject(Cloudlet_URL, String.class);
+                }catch(Exception  e){
+                    Thread.sleep(1000);
+                }
+                if(result.equals("running")) break;
+            }
             stream.close();
             xmlOutput = stringBuilder.toString();
             System.out.println(xmlOutput);
