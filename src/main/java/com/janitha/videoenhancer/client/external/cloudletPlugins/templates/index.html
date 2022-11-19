@@ -9,17 +9,37 @@
 	
 	<p id="add_after_me">
         This is the text which has already been typed into the div</p>
-	
+
+    <p id="details">
+        This is the text which has already been typed into the div</p>
+
+
 	<script>
 		window.onload = function() {
 		  myFunction();
+		  closeAndGoHome();
 		};
 	function myFunction() {
 		var xmlHttp = new XMLHttpRequest();
 		xmlHttp.open( "GET", '/audio_feed', false ); // false for synchronous request
 		xmlHttp.send( null );
-	  document.getElementById("add_after_me").insertAdjacentHTML("afterend",xmlHttp.responseText);
+	    document.getElementById("add_after_me").insertAdjacentHTML("afterend",xmlHttp.responseText);
 	}
+
+    function closeAndGoHome() {
+
+        fetch('/cludlet_details', {
+                    method: 'GET',
+                    headers: {
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json'
+                    },
+                        body: JSON.stringify(JOBJ)
+                })
+                 .then((response) => response.json())
+                 .then((data) => { document.getElementById("details").insertAdjacentHTML("afterend", data.CloudletProcessIP})
+         }
+    }
 	</script>
 	</body>
 </html>

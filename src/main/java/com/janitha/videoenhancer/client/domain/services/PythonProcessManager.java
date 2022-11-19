@@ -25,6 +25,20 @@ public class PythonProcessManager {
 
     }
 
+    public boolean killPort(String port)
+    {
+        for (Map.Entry<Integer, PyProcess> mapElement : mapOfProcess.entrySet()) {
+
+            // Adding some bonus marks to all the students
+            PyProcess value = mapElement.getValue();
+            if(value.getPort().equals(port)){
+                value.getProcess().destroy();
+                return true;
+            }
+        }
+        return false;
+    }
+
     @PreDestroy
     public void preDestroy()
     {

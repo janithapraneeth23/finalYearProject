@@ -40,6 +40,9 @@ public class plugInManager {
 
     @Value("${server.address}")
     private String ipAddress;
+
+    @Value("${server.port}")
+    private String cloudletHomePort;
     public responseReqPlugin involveAPlugin(String plugInName, String URL) throws IOException, InterruptedException {
 
         Map<String, plugIn> plugInList = getAvailablePlugIns();
@@ -49,7 +52,7 @@ public class plugInManager {
         if(plugInList.containsKey(plugInName)){
             plugIn tmp = plugInList.get(plugInName);
             cloudletPluginArguments pluginArguments = new cloudletPluginArguments("0", URL);
-            ProcessBuilder processBuilder = new ProcessBuilder(pythonPath, pluginFilePath + tmp.getFileName(), host, pluginArguments.getPort(), pluginArguments.getVideoURL());
+            ProcessBuilder processBuilder = new ProcessBuilder(pythonPath, pluginFilePath + tmp.getFileName(), host, pluginArguments.getPort(), cloudletHomePort, pluginArguments.getVideoURL());
             processBuilder.redirectErrorStream(true);
             System.out.println(plugInName + "  filePath " + tmp.getFileName() +  " " + URL + " " + pluginArguments.getPort() + "\n");
             Process process = processBuilder.start();
@@ -61,7 +64,14 @@ public class plugInManager {
             String line;
             StringBuilder stringBuilder = new StringBuilder();
             long end = System.currentTimeMillis() + TimeUnit.MINUTES.toMillis(2);
-
+           /* long end = System.currentTimeMillis() + TimeUnit.HOURS.toMillis(5);
+            while (System.currentTimeMillis() < end && (line = reader.readLine()) != null) {
+                stringBuilder.append(line);
+            }
+            stream.close();
+            xmlOutput = stringBuilder.toString();
+            System.out.println(xmlOutput);
+*/
             PyProcess pyProcess = new PyProcess(process, pluginArguments, plugInName);
             pythonProcessManagerOBJ.addAProcess(pyProcess);
 

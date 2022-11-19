@@ -27,7 +27,9 @@ class BlackAndWhite(VideoCamera):
 n = len(sys.argv)
 host = sys.argv[1]
 port = sys.argv[2]
-URL = sys.argv[3]
+cloudletPort = sys.argv[3]
+URL = sys.argv[4]
+
 
 print("\n", host, " ", port, " ", URL)
 
@@ -35,7 +37,7 @@ originalCamera = BlackAndWhite(URL)
 
 
 
-StreamingHost(host, port, originalCamera)
+StreamingHost(host, port, cloudletPort, originalCamera)
 
 
 print('End Succefully')

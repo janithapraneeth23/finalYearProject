@@ -9,6 +9,7 @@ class VideoCamera(object):
 
        self.pafyObj = pafy.new(url)
        bestVideo  = self.pafyObj.getbestvideo()
+       print(bestVideo)
        #best.resolution, best.extension
        
 
