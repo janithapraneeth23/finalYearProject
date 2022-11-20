@@ -1,24 +1,28 @@
 <html>
   <head>
     <title>Video Streaming Via Cloudlet</title>
-  </head>
-  <body>
-    <h1>Video Streaming Via Cloudlet</h1>
-    <img id="bg" src="{{ url_for('video_feed') }}">
-	
-	
-	<p id="add_after_me">
-        This is the text which has already been typed into the div</p>
+        <style>
+        .button {
+          background-color: #4CAF50;
+          border: none;
+          color: white;
+          padding: 15px 32px;
+          text-align: center;
+          text-decoration: none;
+          display: inline-block;
+          font-size: 16px;
+          margin: 4px 2px;
+          cursor: pointer;
+        }
+        </style>
 
-    <p id="details">
-        This is the text which has already been typed into the div</p>
-
-
-	<script>
+      <script>
 		window.onload = function() {
 		  myFunction();
-		  closeAndGoHome();
+
 		};
+
+
 	function myFunction() {
 		var xmlHttp = new XMLHttpRequest();
 		xmlHttp.open( "GET", '/audio_feed', false ); // false for synchronous request
@@ -29,17 +33,36 @@
     function closeAndGoHome() {
 
         fetch('/cludlet_details', {
-                    method: 'GET',
-                    headers: {
-                        'Accept': 'application/json',
-                        'Content-Type': 'application/json'
-                    },
-                        body: JSON.stringify(JOBJ)
-                })
-                 .then((response) => response.json())
-                 .then((data) => { document.getElementById("details").insertAdjacentHTML("afterend", data.CloudletProcessIP})
-         }
+            method: 'GET',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            }
+        })
+         .then((response) => response.json())
+         .then((data) => { let host = data.CloudletProcessIP;
+                           let port = data.CloudletHomePort;
+                           let processPort = data.CloudletProcessPort;
+                           window.location.replace('//' + host + ':' + port);})
+
     }
 	</script>
+  </head>
+  <body>
+    <h1>Video Streaming Via Cloudlet</h1>
+    <img id="bg" src="{{ url_for('video_feed') }}">
+
+	<p id="add_after_me"></p>
+    <br>
+    <br>
+    <br>
+    <button class="button" onclick="closeAndGoHome()">Home</button>
+
+
+    <p id="demo"></p>
+
+
+
+
 	</body>
 </html>

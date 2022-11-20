@@ -61,8 +61,8 @@ class ParentGuide(VideoCamera):
         return jpeg.tobytes()
     
     def get_audio(self):
-        #play_url = self.bestaudio.url
-        return ""
+        play_url = self.bestaudio.url
+        return play_url
     
 
 

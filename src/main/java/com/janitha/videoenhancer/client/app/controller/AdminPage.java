@@ -5,6 +5,7 @@ import com.janitha.videoenhancer.client.domain.services.PythonProcessManager;
 import com.janitha.videoenhancer.client.external.models.PyProcessDetails;
 import com.janitha.videoenhancer.client.external.models.plugIn;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
@@ -38,11 +39,14 @@ public class AdminPage extends BaseController{
     }
 
     @GetMapping("adminPage/closeRunningCloudlet/{port}")
-    public boolean involkePlugIn(@PathVariable("port") String port) throws IOException, InterruptedException {
+    public ResponseEntity involkePlugIn(@PathVariable("port") String port) throws IOException, InterruptedException {
 
         System.out.println("Closing Cloudlet" + port );
-        return pythonProcessManagerOBJ.killPort(port);
 
+        if(pythonProcessManagerOBJ.killPort(port))
+            return ResponseEntity.ok().build();
+        else
+            return ResponseEntity.notFound().build();
     }
 
 }
