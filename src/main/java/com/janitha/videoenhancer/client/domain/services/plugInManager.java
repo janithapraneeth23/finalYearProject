@@ -56,10 +56,17 @@ public class plugInManager {
             processBuilder.redirectErrorStream(true);
             System.out.println(plugInName + "  filePath " + tmp.getFileName() +  " " + URL + " " + pluginArguments.getPort() + "\n");
             Process process = processBuilder.start();
-            System.out.println(host + " " + plugInName + "  filePath2 " + tmp.getFileName() +  " " + URL + " " + pluginArguments.getPort() + "\n");
+            System.out.println(host + " " + plugInName + "  filePath2 " + tmp.getFileName() +  " " + pluginArguments.getVideoURL() + " " + pluginArguments.getPort() + "\n");
+
+
+
+            /*BufferedReader stdInput = new BufferedReader(new InputStreamReader(process.getInputStream()));
+            String s = null;
+            while ((s = stdInput.readLine()) != null) {
+            System.out.println(s);
+            }*/
 
             InputStream stream = (process.getInputStream());
-
             BufferedReader reader = new BufferedReader(new InputStreamReader(stream));
             String line;
             StringBuilder stringBuilder = new StringBuilder();
@@ -82,6 +89,7 @@ public class plugInManager {
                 try {
                     result = cloudletReq.getForObject(Cloudlet_URL, String.class);
                 }catch(Exception  e){
+                    System.out.println("Waiting...");
                     Thread.sleep(1000);
                 }
                 if(result.equals("running")) break;

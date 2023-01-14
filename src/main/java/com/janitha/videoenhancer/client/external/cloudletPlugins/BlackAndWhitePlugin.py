@@ -3,12 +3,17 @@ from streamingHost import StreamingHost
 from camera import VideoCamera
 import cv2
 
+n = len(sys.argv)
+host = sys.argv[1]
+port = sys.argv[2]
+cloudletPort = sys.argv[3]
+URL = sys.argv[4]
+
 ds_factor=1
 class BlackAndWhite(VideoCamera):  
     def __init__(self, url):
         super().__init__(url)
 
-    
     def get_frame(self):
         ret, frame = self.video.read()
         frame=cv2.resize(frame,None,fx=ds_factor,fy=ds_factor,
@@ -21,23 +26,6 @@ class BlackAndWhite(VideoCamera):
     def get_audio(self):
         play_url = self.bestaudio.url
         return play_url
-    
-
-
-n = len(sys.argv)
-host = sys.argv[1]
-port = sys.argv[2]
-cloudletPort = sys.argv[3]
-URL = sys.argv[4]
-
-
-print("\n", host, " ", port, " ", URL)
 
 originalCamera = BlackAndWhite(URL)
-
-
-
 StreamingHost(host, port, cloudletPort, originalCamera)
-
-
-print('End Succefully')
