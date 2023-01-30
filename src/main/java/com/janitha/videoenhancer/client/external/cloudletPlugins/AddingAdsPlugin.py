@@ -15,7 +15,7 @@ class AddingAds(VideoCamera):
     def get_frame(self):
         ret, frame = self.video.read()
         font_face = cv2.FONT_HERSHEY_SIMPLEX
-        scale = 0.5
+        scale = 2
         color = (0, 0, 0)
         thickness = cv2.FILLED
         margin = 2
@@ -42,13 +42,14 @@ class AddingAds(VideoCamera):
 n = len(sys.argv)
 host = sys.argv[1]
 port = sys.argv[2]
-URL = sys.argv[3]
+cloudletPort = sys.argv[3]
+URL = sys.argv[4]
 
 print("\n", host, " ", port, " ", URL)
 
 originalCamera = AddingAds(URL)
 
-StreamingHost(host, port, originalCamera)
+StreamingHost(host, port, cloudletPort, originalCamera)
 
 
 print('End Succefully')
