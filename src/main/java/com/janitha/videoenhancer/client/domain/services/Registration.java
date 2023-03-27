@@ -28,12 +28,14 @@ public class Registration {
     @Value("${server.address}")
     private String myaddress;
 
+    @Value("${server.address2}")
+    private String myexternaladdress;
     @PostConstruct
     private void postRegistration()
     {
-        String uri="http://" + address + ":" + port + "/registerPlugin/";
+        String uri="http://" + address + ":" + port + "/registerCloudlet";
         RestTemplate restTemplate = new RestTemplate();
-        registerRequest tmp = new registerRequest(myaddress, myport, "cloudlet_zero_dawn", "SL");
+        registerRequest tmp = new registerRequest(myaddress, myport, myexternaladdress, "cloudlet_zero_dawn", "SL");
 
         ResponseEntity<String> result = restTemplate.postForEntity(uri, tmp, String.class);
     }
@@ -41,7 +43,7 @@ public class Registration {
     @PreDestroy
     private void unRegistration()
     {
-        String uri="http://" + address + ":" + port + "/unregisterPlugin/";
+        String uri="http://" + address + ":" + port + "/unregisterCloudlet";
         unregisterCloudletRequest tmp = new unregisterCloudletRequest(myaddress, myport);
         RestTemplate restTemplate = new RestTemplate();
         ResponseEntity<String> result = restTemplate.postForEntity(uri, tmp, String.class);

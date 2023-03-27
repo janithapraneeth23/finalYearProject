@@ -1,12 +1,13 @@
 server:
   port: 8083
-  address: 192.168.8.129
+  address: 192.168.8.102
+  address2: 136.226.243.17
 base-url:
   context: /api/library/v1.0
 
 micro_sercice:
-  port: 8080
-  address: 34.28.43.123
+  port: 8082
+  address: 35.200.146.143
 
 spring:
   profiles:
