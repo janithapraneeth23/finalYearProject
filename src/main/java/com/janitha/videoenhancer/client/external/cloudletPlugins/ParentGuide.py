@@ -10,9 +10,9 @@ ds_factor=1
 class ParentGuide(VideoCamera):  
     def __init__(self, url):
         path = os.getcwd()
-
+           #https://www.youtube.com/watch?v=2fmkmp-_KH0
         print(path)
-        img = cv2.imread('C:\\Personal\\Msc\\Project\\server\\server\\src\\main\\java\\com\\janitha\\videoenhancer\\client\\external\\cloudletPlugins\\logo_train.png')
+        img = cv2.imread('C:\\Users\\janitha\\IdeaProjects\\finalYearProject_Cloudlet\\src\\main\\java\\com\\janitha\\videoenhancer\\client\\external\\cloudletPlugins\\logo_train.png')
         self.train_features = features.getFeatures(img)
         self.cur_time = timeit.default_timer()
         self.frame_number = 0

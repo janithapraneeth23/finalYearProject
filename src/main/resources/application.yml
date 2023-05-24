@@ -1,6 +1,6 @@
 server:
   port: 8083
-  address: 192.168.8.102
+  address: 192.168.8.177
   address2: 136.226.243.17
 base-url:
   context: /api/library/v1.0
@@ -29,5 +29,5 @@ log:
  identifierKey: UUID
 
 python:
-  pluginFilePath: "C:\\Personal\\Msc\\Project\\server\\server\\src\\main\\java\\com\\janitha\\videoenhancer\\client\\external\\cloudletPlugins"
-  pythonPath : "C:\\Users\\janitha\\AppData\\Local\\Programs\\Python\\Python310\\python"
+  pluginFilePath: "C:\\Users\\janitha\\IdeaProjects\\finalYearProject_Cloudlet\\src\\main\\java\\com\\janitha\\videoenhancer\\client\\external\\cloudletPlugins"
+  pythonPath : "C:\\Users\\janitha\\anaconda3\\python"
